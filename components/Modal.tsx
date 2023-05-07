@@ -1,5 +1,6 @@
 import React, {Fragment, ReactNode} from 'react';
 import {Dialog, Transition} from "@headlessui/react";
+import {useTranslation} from "react-i18next";
 
 interface ModalType {
     children?: ReactNode;
@@ -8,6 +9,7 @@ interface ModalType {
 }
 
 function Modal(props: ModalType) {
+    const {t, i18n} = useTranslation();
     return (
         <Transition appear show={props.isOpen} as={Fragment}>
             <Dialog
@@ -46,12 +48,7 @@ function Modal(props: ModalType) {
                     >
                         <div
                             className="inline-block  dark:bg-[#1F2737] w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                            <Dialog.Title
-                                as="h3"
-                                className="text-lg font-medium leading-6 dark:text-white"
-                            >
-                                Modal
-                            </Dialog.Title>
+
                             <div className="mt-2">
                                 {props.children}
                             </div>
@@ -62,7 +59,7 @@ function Modal(props: ModalType) {
                                     className="bg-[#F7AB0A]  px-10 rounded-md text-black font-bold text-lg"
                                     onClick={props.toggle}
                                 >
-                                    Close
+                                    {t('close')}
                                 </button>
                             </div>
                         </div>

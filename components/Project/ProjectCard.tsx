@@ -10,10 +10,10 @@ type Props = {
     title: string;
     alt: string;
     img: string;
-    url: string|undefined;
+    url: string | undefined;
 }
 
-function ProjectCard({title, alt,url, id, img}: Props) {
+function ProjectCard({title, alt, url, id, img}: Props) {
     const router = useRouter();
 
     const handleClick = (event: any) => {
@@ -22,13 +22,13 @@ function ProjectCard({title, alt,url, id, img}: Props) {
         if (event.ctrlKey || event.button === 1) {
             window.open(url, "_blank")
         } else if (event.type === 'click') {
-            router.push(`/?projectId=${id}`)
+            router.push(`/?projectId=${id}`).then(r => r)
         }
     }
 
     return (
         <>
-            <Modal isOpen={!!router.query.projectId} toggle={() => router.push('/')}>
+            <Modal  isOpen={!!router.query.projectId} toggle={() => router.push('/')}>
                 <Project id={Number(router.query.projectId)}/>
             </Modal>
             <Link onClick={handleClick} href={`/?projectId=${id}`} as={`/project/${id}`}>
