@@ -6,12 +6,14 @@ import {Trans, useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {languageChange} from "@/redux/langActions";
 import {RootState} from "@/store/store";
-import {Dialog, Transition} from "@headlessui/react";
+import Education from "@/components/Education";
+import Experience from "@/components/Experience";
 
 function Header() {
     const {t, i18n} = useTranslation();
     const {language} = useSelector((state: RootState) => state.lang)
     const [educationModal, setEducationModal] = useState(false);
+    const [experienceModal, setExperienceModal] = useState(false);
     useEffect(() => {
         if (language) {
             i18n.changeLanguage(language)
@@ -24,14 +26,20 @@ function Header() {
     }
     let [isOpen, setIsOpen] = useState(false);
 
-    function closeModal() {
+    const closeModalEducation = () => {
         setEducationModal(false);
     }
 
-    function openModal() {
+    const openModalEducation = () => {
         setEducationModal(true);
     }
+    const closeModalExperience = () => {
+        setExperienceModal(false);
+    }
 
+    const openModalExperience = () => {
+        setExperienceModal(true);
+    }
     return (
         <>
             <header
@@ -51,11 +59,10 @@ function Header() {
                     <Link href="#about">
                         <button className="heroButton"><Trans t={t}>about</Trans></button>
                     </Link>
-                    <button onClick={openModal} className="heroButton"><Trans
+                    <button onClick={openModalEducation} className="heroButton"><Trans
                         t={t}>education</Trans></button>
-                    <Link href="#experience">
-                        <button className="heroButton"><Trans t={t}>experience</Trans></button>
-                    </Link>
+                    <button onClick={openModalExperience} className="heroButton"><Trans
+                        t={t}>experience</Trans></button>
                     <Link href="#skills">
                         <button className="heroButton"><Trans t={t}>skills</Trans></button>
                     </Link>
@@ -82,7 +89,8 @@ function Header() {
                     </Link>
                 </div>
             </header>
-
+            <Education isOpen={educationModal} closeModal={closeModalEducation}/>
+            <Experience isOpen={experienceModal} closeModal={closeModalExperience}/>
         </>
     );
 }
